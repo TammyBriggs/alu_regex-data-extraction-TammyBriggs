@@ -91,8 +91,8 @@ def is_valid_time(time_str):
     return False
 
 def extract_times_with_validation(text):
-    extracted_times_24hr = re.findall(r"([01]\d|2[0-3]):[0-5]\d", text)
-    extracted_times_12hr = re.findall(r"(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)", text, re.IGNORECASE)
+    extracted_times_24hr = re.findall(r'\b(?:[01]\d|2[0-3]):[0-5]\d\b', text)
+    extracted_times_12hr = re.findall(r'\b(?:0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)\b', text, re.IGNORECASE)
     all_extracted_times = extracted_times_24hr + extracted_times_12hr
     valid_times = [t for t in all_extracted_times if is_valid_time(t)]
     return valid_times
