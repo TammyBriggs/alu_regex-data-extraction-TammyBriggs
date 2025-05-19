@@ -21,3 +21,7 @@ def extract_times(text):
     time_24hr = re.findall(r"([01]\d|2[0-3]):[0-5]\d", text)
     time_12hr = re.findall(r"(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)", text, re.IGNORECASE)
     return time_24hr + time_12hr
+
+def extract_hashtags(text):
+    """Extracts hashtags from a string."""
+    return re.findall(r"#\w+", text)
