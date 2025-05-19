@@ -15,3 +15,9 @@ def extract_phone_numbers(text):
 def extract_credit_card_numbers(text):
     """Extracts credit card numbers from a string (with or without hyphens/spaces)."""
     return re.findall(r"\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}", text)
+
+def extract_times(text):
+    """Extracts time in 12-hour and 24-hour formats from a string."""
+    time_24hr = re.findall(r"([01]\d|2[0-3]):[0-5]\d", text)
+    time_12hr = re.findall(r"(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)", text, re.IGNORECASE)
+    return time_24hr + time_12hr
