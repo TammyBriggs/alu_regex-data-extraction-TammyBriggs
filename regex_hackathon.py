@@ -66,6 +66,16 @@ def extract_phone_numbers_with_validation(text):
     # Extracts credit card numbers from a string (with or without hyphens/spaces).
     return re.findall(r"\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}", text) """
 
+# Credit Card Number Validation (Basic Length Check)
+def is_valid_credit_card(cc_num):
+    cleaned_cc = re.sub(r'[^0-9]', '', cc_num)
+    return 13 <= len(cleaned_cc) <= 19  # Basic length check
+
+def extract_credit_card_numbers_with_validation(text):
+    extracted_ccs = re.findall(r"\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}", text)
+    valid_ccs = [cc for cc in extracted_ccs if is_valid_credit_card(cc)]
+    return valid_ccs
+
 """ def extract_times(text):
     # Extracts time in 12-hour and 24-hour formats from a string.
     time_24hr = re.findall(r'\b(?:[01]\d|2[0-3]):[0-5]\d\b', text)
@@ -89,7 +99,7 @@ Check out the #amazing #Python code!
 emails = extract_emails_with_validation(text_data)
 urls = extract_urls_with_validation(text_data)
 phone_numbers = extract_phone_numbers_with_validation(text_data)
-credit_cards = extract_credit_card_numbers(text_data)
+credit_cards = extract_credit_card_numbers_with_validation(text_data)
 times = extract_times(text_data)
 hashtags = extract_hashtags(text_data)
 
