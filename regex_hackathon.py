@@ -25,3 +25,27 @@ def extract_times(text):
 def extract_hashtags(text):
     """Extracts hashtags from a string."""
     return re.findall(r"#\w+", text)
+
+# Example usage:
+text_data = """
+Contact us at user@example.com or firstname.lastname@company.co.uk.
+Visit our website at https://www.example.com or https://subdomain.example.org/page.
+Call us at (123) 456-7890, 123-456-7890, or 123.456.7890.
+Use credit card number 1234-5678-9012-3456 or 5555 1111 2222 3333.
+Meeting at 14:30 or 2:30 PM.
+Check out the #amazing #Python code!
+"""
+
+emails = extract_emails(text_data)
+urls = extract_urls(text_data)
+phone_numbers = extract_phone_numbers(text_data)
+credit_cards = extract_credit_card_numbers(text_data)
+times = extract_times(text_data)
+hashtags = extract_hashtags(text_data)
+
+print("Emails:", emails)
+print("URLs:", urls)
+print("Phone Numbers:", phone_numbers)
+print("Credit Card Numbers:", credit_cards)
+print("Times:", times)
+print("Hashtags:", hashtags)
