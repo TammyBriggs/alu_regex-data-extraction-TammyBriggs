@@ -4,8 +4,8 @@ import re
    # Extracts email addresses from a string.
     return re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text) """
 
+# Email Validation
 def is_valid_email(email):
-    """Performs basic validation on an extracted email address."""
     if not email:
         return False
     if '@' not in email:
@@ -112,8 +112,8 @@ def extract_hashtags_with_validation(text):
 
 # Example usage:
 text_data = """
-Contact us at home@example.com or firstname.lastname@company.co.uk.
-Visit our website at https://www.skip.com or https://subdomain.racing.org/page.
+Contact us at home@example.com or firstname.lastname@company.co.uk. or @gmail.com. or chief@gmail.com.
+Visit our website at https://www.skip.com or https://subdomain.racing.org/page or running.
 Call us at (123) 456-7890, 123-456-7890, or 123.456.7890.
 Use credit card number 1234-5678-9012-3456 or 1111 2222 3333 4444.
 Meeting at 14:30 or 2:30 PM.
