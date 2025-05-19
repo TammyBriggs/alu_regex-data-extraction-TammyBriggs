@@ -28,9 +28,25 @@ def extract_emails_with_validation(text):
     valid_emails = [email for email in extracted_emails if is_valid_email(email)]
     return valid_emails
 
-def extract_urls(text):
-    """Extracts URLs from a string."""
-    return re.findall(r"https?://(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:/\S*)?", text)
+""" def extract_urls(text):
+    # Extracts URLs from a string.
+    return re.findall(r"https?://(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:/\S*)?", text) """
+
+# URL Validation
+def is_valid_url(url):
+    if not url or not url.startswith(('http://', 'https://')) or '.' not in url.split('//', 1)[-1]:
+        return False
+    parts = url.split('//', 1)[-1].split('/')
+    if not parts[0]:
+        return False
+    if url.endswith('.'):
+        return False
+    return True
+
+def extract_urls_with_validation(text):
+    extracted_urls = re.findall(r"https?://(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:/\S*)?", text)
+    valid_urls = [url for url in extracted_urls if is_valid_url(url)]
+    return valid_urls
 
 def extract_phone_numbers(text):
     """Extracts phone numbers from a string (various formats)."""
@@ -61,7 +77,7 @@ Check out the #amazing #Python code!
 """
 
 emails = extract_emails_with_validation(text_data)
-urls = extract_urls(text_data)
+urls = extract_urls_with_validation(text_data)
 phone_numbers = extract_phone_numbers(text_data)
 credit_cards = extract_credit_card_numbers(text_data)
 times = extract_times(text_data)
