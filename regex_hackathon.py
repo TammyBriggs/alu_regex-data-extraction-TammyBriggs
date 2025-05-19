@@ -48,23 +48,33 @@ def extract_urls_with_validation(text):
     valid_urls = [url for url in extracted_urls if is_valid_url(url)]
     return valid_urls
 
-def extract_phone_numbers(text):
-    """Extracts phone numbers from a string (various formats)."""
-    return re.findall(r"(?:\d{3}|\(\d{3}\))[-.\s]?\d{3}[-.\s]?\d{4}", text)
+""" def extract_phone_numbers(text):
+    # Extracts phone numbers from a string (various formats).
+    return re.findall(r"(?:\d{3}|\(\d{3}\))[-.\s]?\d{3}[-.\s]?\d{4}", text) """
 
-def extract_credit_card_numbers(text):
-    """Extracts credit card numbers from a string (with or without hyphens/spaces)."""
-    return re.findall(r"\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}", text)
+# Phone Number Validation
+def is_valid_phone_number(phone):
+    cleaned_phone = re.sub(r'[^0-9]', '', phone)
+    return len(cleaned_phone) == 10
 
-def extract_times(text):
-    """Extracts time in 12-hour and 24-hour formats from a string."""
+def extract_phone_numbers_with_validation(text):
+    extracted_phones = re.findall(r"(?:\d{3}|\(\d{3}\))[-.\s]?\d{3}[-.\s]?\d{4}", text)
+    valid_phones = [phone for phone in extracted_phones if is_valid_phone_number(phone)]
+    return valid_phones
+
+""" def extract_credit_card_numbers(text):
+    # Extracts credit card numbers from a string (with or without hyphens/spaces).
+    return re.findall(r"\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}", text) """
+
+""" def extract_times(text):
+    # Extracts time in 12-hour and 24-hour formats from a string.
     time_24hr = re.findall(r'\b(?:[01]\d|2[0-3]):[0-5]\d\b', text)
     time_12hr = re.findall(r'\b(?:0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)\b', text, re.IGNORECASE)
-    return time_24hr + time_12hr
+    return time_24hr + time_12hr """
 
-def extract_hashtags(text):
-    """Extracts hashtags from a string."""
-    return re.findall(r"#\w+", text)
+""" def extract_hashtags(text):
+    # Extracts hashtags from a string.
+    return re.findall(r"#\w+", text) """
 
 # Example usage:
 text_data = """
@@ -78,7 +88,7 @@ Check out the #amazing #Python code!
 
 emails = extract_emails_with_validation(text_data)
 urls = extract_urls_with_validation(text_data)
-phone_numbers = extract_phone_numbers(text_data)
+phone_numbers = extract_phone_numbers_with_validation(text_data)
 credit_cards = extract_credit_card_numbers(text_data)
 times = extract_times(text_data)
 hashtags = extract_hashtags(text_data)
