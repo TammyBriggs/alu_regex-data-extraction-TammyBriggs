@@ -1,8 +1,32 @@
 import re
 
-def extract_emails(text):
-    """Extracts email addresses from a string."""
-    return re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text)
+""" def extract_emails(text):
+   # Extracts email addresses from a string.
+    return re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text) """
+
+def is_valid_email(email):
+    """Performs basic validation on an extracted email address."""
+    if not email:
+        return False
+    if '@' not in email:
+        return False
+    parts = email.split('@')
+    if len(parts) != 2:
+        return False
+    local_part, domain_part = parts
+    if not local_part or not domain_part:
+        return False
+    if '.' not in domain_part:
+        return False
+    if email.endswith('.'):
+        return False
+    return True
+
+def extract_emails_with_validation(text):
+    """Extracts email addresses and performs basic validation."""
+    extracted_emails = re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text)
+    valid_emails = [email for email in extracted_emails if is_valid_email(email)]
+    return valid_emails
 
 def extract_urls(text):
     """Extracts URLs from a string."""
@@ -36,7 +60,7 @@ Meeting at 14:30 or 2:30 PM.
 Check out the #amazing #Python code!
 """
 
-emails = extract_emails(text_data)
+emails = extract_emails_with_validation(text_data)
 urls = extract_urls(text_data)
 phone_numbers = extract_phone_numbers(text_data)
 credit_cards = extract_credit_card_numbers(text_data)
