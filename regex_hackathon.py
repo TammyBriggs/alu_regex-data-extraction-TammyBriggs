@@ -18,8 +18,8 @@ def extract_credit_card_numbers(text):
 
 def extract_times(text):
     """Extracts time in 12-hour and 24-hour formats from a string."""
-    time_24hr = re.findall(r"([01]\d|2[0-3]):[0-5]\d", text)
-    time_12hr = re.findall(r"(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)", text, re.IGNORECASE)
+    time_24hr = re.findall(r'\b(?:[01]\d|2[0-3]):[0-5]\d\b', text)
+    time_12hr = re.findall(r'\b(?:0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)\b', text, re.IGNORECASE)
     return time_24hr + time_12hr
 
 def extract_hashtags(text):
@@ -28,10 +28,10 @@ def extract_hashtags(text):
 
 # Example usage:
 text_data = """
-Contact us at user@example.com or firstname.lastname@company.co.uk.
-Visit our website at https://www.example.com or https://subdomain.example.org/page.
+Contact us at home@example.com or firstname.lastname@company.co.uk.
+Visit our website at https://www.skip.com or https://subdomain.racing.org/page.
 Call us at (123) 456-7890, 123-456-7890, or 123.456.7890.
-Use credit card number 1234-5678-9012-3456 or 5555 1111 2222 3333.
+Use credit card number 1234-5678-9012-3456 or 1111 2222 3333 4444.
 Meeting at 14:30 or 2:30 PM.
 Check out the #amazing #Python code!
 """
