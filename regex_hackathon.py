@@ -82,9 +82,33 @@ def extract_credit_card_numbers_with_validation(text):
     time_12hr = re.findall(r'\b(?:0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)\b', text, re.IGNORECASE)
     return time_24hr + time_12hr """
 
+# Time Validation
+def is_valid_time(time_str):
+    if re.match(r"^(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)$", time_str, re.IGNORECASE):
+        return True
+    if re.match(r"^(?:[01]\d|2[0-3]):[0-5]\d$", time_str):
+        return True
+    return False
+
+def extract_times_with_validation(text):
+    extracted_times_24hr = re.findall(r"([01]\d|2[0-3]):[0-5]\d", text)
+    extracted_times_12hr = re.findall(r"(0?[1-9]|1[0-2]):[0-5]\d\s?(?:AM|PM)", text, re.IGNORECASE)
+    all_extracted_times = extracted_times_24hr + extracted_times_12hr
+    valid_times = [t for t in all_extracted_times if is_valid_time(t)]
+    return valid_times
+
 """ def extract_hashtags(text):
     # Extracts hashtags from a string.
     return re.findall(r"#\w+", text) """
+
+# Hashtag Validation (Basic Check for Non-Whitespace)
+def is_valid_hashtag(hashtag):
+    return hashtag.startswith('#') and len(hashtag) > 1 and not re.search(r'\s', hashtag[1:])
+
+def extract_hashtags_with_validation(text):
+    extracted_hashtags = re.findall(r"#\w+", text)
+    valid_hashtags = [tag for tag in extracted_hashtags if is_valid_hashtag(tag)]
+    return valid_hashtags
 
 # Example usage:
 text_data = """
@@ -100,8 +124,8 @@ emails = extract_emails_with_validation(text_data)
 urls = extract_urls_with_validation(text_data)
 phone_numbers = extract_phone_numbers_with_validation(text_data)
 credit_cards = extract_credit_card_numbers_with_validation(text_data)
-times = extract_times(text_data)
-hashtags = extract_hashtags(text_data)
+times = extract_times_with_validation(text_data)
+hashtags = extract_hashtags_with_validation(text_data)
 
 print("Emails:", emails)
 print("URLs:", urls)
