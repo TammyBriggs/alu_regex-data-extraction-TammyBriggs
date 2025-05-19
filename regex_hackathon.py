@@ -114,10 +114,10 @@ def extract_hashtags_with_validation(text):
 text_data = """
 Contact us at home@example.com or firstname.lastname@company.co.uk. or @gmail.com. or chief@gmail.com.
 Visit our website at https://www.skip.com or https://subdomain.racing.org/page or running.
-Call us at (123) 456-7890, 123-456-7890, or 123.456.7890.
-Use credit card number 1234-5678-9012-3456 or 1111 2222 3333 4444.
-Meeting at 14:30 or 2:30 PM.
-Check out the #amazing #Python code!
+Call us at (123) 456-7890, 123-456-7890, or 123.456.7890 or 123456789a.
+Use credit card number 1234-5678-9012-3456 or 1111 2222 3333 4444 or 111a 222b 333c 444d.
+Meeting at 14:30 or 2:30 PM or 6.
+Check out this# #amazing #Python code!
 """
 
 emails = extract_emails_with_validation(text_data)
